@@ -93,6 +93,7 @@ class _AppoinmentDetailState extends State<AppoinmentDetail> {
                         child: Text("OK"),
                         onPressed: () {
                           Navigator.pop(context);
+                          Navigator.pop(context);
                         },
                       ),
                       TextButton(

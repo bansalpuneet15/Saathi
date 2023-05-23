@@ -112,8 +112,8 @@ class NoteListState extends State<NoteList> {
           onTap: () {
             navigateToDetail(note, 'Edit Note');
           },
-          child: Dismissible(
-            onDismissed: (direction) async {
+          child: InkWell(
+            onLongPress: () async {
               _delete(noteList[noteList.indexOf(note)]);
               list.removeAt(noteList.indexOf(note));
             },

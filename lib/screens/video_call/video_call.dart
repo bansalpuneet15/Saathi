@@ -8,6 +8,7 @@ import 'package:senior_citizen_app/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 // import 'package:jitsi_meet_wrapper/jitsi_meet_wrapper.dart
 import 'package:jitsi_meet/jitsi_meeting_listener.dart';
+import 'package:flutter_sms/flutter_sms.dart';
 
 class VideoCall extends StatefulWidget {
   final String userID;
@@ -29,6 +30,8 @@ class _VideoCallState extends State<VideoCall> {
   var isAudioOnly = false;
   var isAudioMuted = false;
   var isVideoMuted = false;
+  final List<String> recipients = [];
+  String messageUrl;
 
   @override
   void initState() {
@@ -65,8 +68,8 @@ class _VideoCallState extends State<VideoCall> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               UserProfile userProfile = UserProfile(widget.userID);
-              print('snapshot ${snapshot.data.data}');
-              userProfile.setData(snapshot.data.data);
+              print('snapshot ${snapshot.data.data()}');
+              userProfile.setData(snapshot.data.data());
               roomText.value = TextEditingValue(text: userProfile.uid);
               nameText.value = TextEditingValue(text: userProfile.userName);
               emailText.value = TextEditingValue(text: userProfile.email);
@@ -103,16 +106,31 @@ class _VideoCallState extends State<VideoCall> {
                       thickness: 2.0,
                     ),
                     FutureBuilder(
-                        future: null,
+                        future: FirebaseFirestore.instance
+                            .collection('profile')
+                            .doc(widget.userID)
+                            .collection('relatives')
+                            .get(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
+                            print('hasdata ${snapshot.hasData}');
                             return SizedBox(
                               height: 64.0,
                               width: double.maxFinite,
                               child: ElevatedButton(
                                 onPressed: () async {
-                                  await sendSMS();
-                                  _joinMeeting();
+                                  print("data ${snapshot.data.docs}");
+                                  for (var data in snapshot.data.docs) {
+                                    print('data1 ${data.data()}');
+                                    if (data['uid'] != '') {
+                                      print('number ${data['phoneNumber']}');
+                                      recipients.add(data['phoneNumber']);
+                                    }
+                                  }
+                                  print('Recipients ${recipients}');
+                                  await _joinMeeting();
+                                  for (var relative in recipients)
+                                    sendSMS(relative);
                                 },
                                 child: Text(
                                   "Start now",
@@ -128,8 +146,17 @@ class _VideoCallState extends State<VideoCall> {
                               width: double.maxFinite,
                               child: ElevatedButton(
                                 onPressed: () async {
-                                  await sendSMS();
-                                  _joinMeeting();
+                                  for (var data in snapshot.data.docs) {
+                                    print('data1 ${data.data()}');
+                                    if (data['uid'] != '') {
+                                      print('number ${data['phoneNumber']}');
+                                      recipients.add(data['phoneNumber']);
+                                    }
+                                  }
+                                  print('Recipients ${recipients}');
+                                  await _joinMeeting();
+                                  for (var relative in recipients)
+                                    sendSMS(relative);
                                 },
                                 child: Text(
                                   "Start now",
@@ -173,7 +200,6 @@ class _VideoCallState extends State<VideoCall> {
   _joinMeeting() async {
     String serverUrl =
         serverText.text?.trim()?.isEmpty ?? "" ? null : serverText.text;
-
     try {
       var options = JitsiMeetingOptions()
         ..room = roomText.text
@@ -201,6 +227,9 @@ class _VideoCallState extends State<VideoCall> {
   }
 
   void _onConferenceWillJoin({message}) {
+    setState(() {
+      messageUrl = message['url'];
+    });
     debugPrint("_onConferenceWillJoin broad-casted with message: $message");
   }
 
@@ -219,24 +248,24 @@ class _VideoCallState extends State<VideoCall> {
     debugPrint("_onError broadcasted: $error");
   }
 
-  sendSMS() async {
+  sendSMS(String number) async {
     var cred =
-        'AC07a649c710761cf3a0e6b96048accf58:60cfd08bcc74ea581187a048dfd653cb';
+        'AC48c6cbf3c91252d89de30f89ca9c7bb4:bfa0212a38c0f62a6112788aba44ac6f';
 
     var bytes = utf8.encode(cred);
 
     var base64Str = base64.encode(bytes);
+    print('number2: +91${number}');
+    Uri url = Uri.parse(
+        'https://api.twilio.com/2010-04-01/Accounts/AC48c6cbf3c91252d89de30f89ca9c7bb4/Messages.json');
 
-    var url =
-        'https://api.twilio.com/2010-04-01/Accounts/AC07a649c710761cf3a0e6b96048accf58/Messages.json';
-
-    var response = await http.post(url as Uri, headers: {
+    var response = await http.post(url, headers: {
       'Authorization': 'Basic $base64Str'
     }, body: {
-      'From': '+12567403927',
-      'To': '+918087214942',
+      'From': '+16089252165',
+      'To': '+91$number',
       'Body':
-          'Open Saathi Sampark application and come in for urgent video call.'
+          'Open Saathi Sampark application and come in for urgent video call or Use the link: "https://meet.jit.si/${widget.userID}".'
     });
 
     print('Response status: ${response.statusCode}');

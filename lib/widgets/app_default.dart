@@ -1,5 +1,6 @@
 import 'package:senior_citizen_app/screens/home/home_screen.dart';
 import 'package:senior_citizen_app/screens/loading/loading_screen.dart';
+import 'package:senior_citizen_app/screens/loading/onBoarding_screen.dart';
 import 'package:senior_citizen_app/screens/profile/profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +82,12 @@ class AppDrawer extends StatelessWidget {
                           text: 'Link Relative',
                         ),
                         ListButtons(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return OnBoardingScreen();
+                            }));
+                          },
                           icon: Icons.description,
                           text: 'Instructions',
                         ),

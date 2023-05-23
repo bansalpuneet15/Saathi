@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.15"
+  activity_recognition_flutter:
+    dependency: "direct main"
+    description:
+      name: activity_recognition_flutter
+      sha256: "664398e0e8fb13f013431212a01e8b7438a68ee695b6809ce1b451784647772f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.0"
   android_alarm_manager_plus:
     dependency: "direct main"
     description:
@@ -65,6 +73,23 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
+  charts_common:
+    dependency: transitive
+    description:
+      name: charts_common
+      sha256: "7b8922f9b0d9b134122756a787dab1c3946ae4f3fc5022ff323ba0014998ea02"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.12.0"
+  charts_flutter:
+    dependency: "direct main"
+    description:
+      path: charts_flutter
+      ref: HEAD
+      resolved-ref: fcd0c524ac573ae4d0b79f3bdd6491fbbcdbfb61
+      url: "https://github.com/google/charts.git"
+    source: git
+    version: "0.12.0"
   clock:
     dependency: transitive
     description:
@@ -640,6 +665,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.2"
+  logging:
+    dependency: transitive
+    description:
+      name: logging
+      sha256: "04094f2eb032cbb06c6f6e8d3607edcfcb0455e2bb6cbc010cb01171dcb64e6d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   matcher:
     dependency: transitive
     description:

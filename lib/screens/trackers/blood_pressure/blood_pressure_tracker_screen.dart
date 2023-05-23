@@ -78,7 +78,7 @@ class _BloodPressureTrackerScreenState
 
   @override
   void dispose() {
-    _controller.dispose();
+    // _controller.dispose();
     super.dispose();
   }
 
@@ -120,12 +120,12 @@ class _BloodPressureTrackerScreenState
                                 borderRadius: BorderRadius.circular(10)),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              // child: BloodPressureChart(
-                              //   animate: true,
-                              //   userID: userId,
-                              //   type: 'diastolic',
-                              // ),
-                              child: Text('Hello'),
+                              child: BloodPressureChart(
+                                animate: true,
+                                userID: userId,
+                                type: 'diastolic',
+                              ),
+                              // child: Text('Hello'),
                             ),
                             margin: EdgeInsets.all(8),
                           ),
@@ -175,12 +175,12 @@ class _BloodPressureTrackerScreenState
                                 borderRadius: BorderRadius.circular(10)),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              // child: BloodPressureChart(
-                              //   animate: true,
-                              //   userID: userId,
-                              //   type: 'systolic',
-                              // ),
-                              child: Text('Hello'),
+                              child: BloodPressureChart(
+                                animate: true,
+                                userID: userId,
+                                type: 'systolic',
+                              ),
+                              // child: Text('Hello'),
                             ),
                             margin: EdgeInsets.all(8),
                           ),
@@ -230,12 +230,12 @@ class _BloodPressureTrackerScreenState
                                 borderRadius: BorderRadius.circular(10)),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              // child: BloodPressureChart(
-                              //   animate: true,
-                              //   userID: userId,
-                              //   type: 'pulse',
-                              // ),
-                              child: Text('Hello'),
+                              child: BloodPressureChart(
+                                animate: true,
+                                userID: userId,
+                                type: 'pulse',
+                              ),
+                              // child: Text('Hello'),
                             ),
                             margin: EdgeInsets.all(8),
                           ),

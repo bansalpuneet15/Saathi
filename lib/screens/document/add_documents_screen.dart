@@ -301,13 +301,14 @@ class _AddDocumentsState extends State<AddDocuments> {
   // }
 
   updateData(String name, String value) async {
-    allImages['name'] = name;
-    allImages['url'] = value;
+    Map<String, dynamic> data = Map<String, dynamic>();
+    data['name'] = name;
+    data['url'] = value;
     await FirebaseFirestore.instance
         .collection('documents')
         .doc(userId)
         .collection('file')
-        .add(allImages);
+        .add(data);
     setState(() {
       imageUploading = false;
     });

@@ -104,11 +104,11 @@ class _BloodSugarTrackerScreenState extends State<BloodSugarTrackerScreen> {
                                 borderRadius: BorderRadius.circular(10)),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              // child: BloodSugarChart(
-                              //   animate: true,
-                              //   userID: userId,
-                              // ),
-                              child: Text('Hello'),
+                              child: BloodSugarChart(
+                                animate: true,
+                                userID: userId,
+                              ),
+                              // child: Text('Hello'),
                             ),
                             margin: EdgeInsets.all(8),
                           ),

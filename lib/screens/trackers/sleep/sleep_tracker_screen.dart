@@ -85,6 +85,7 @@ class _SleepTrackerScreenState extends State<SleepTrackerScreen> {
           FutureBuilder(
               future: getDocumentList(),
               builder: (context, snapshot) {
+                print('Snapshot data ${snapshot.data}');
                 if (snapshot.hasData) {
                   return Column(
                     children: <Widget>[
@@ -102,11 +103,11 @@ class _SleepTrackerScreenState extends State<SleepTrackerScreen> {
                                 borderRadius: BorderRadius.circular(10)),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              // child: TimeChart(
-                              //   animate: true,
-                              //   userID: userId,
-                              // ),
-                              child: Text('Hello'),
+                              child: TimeChart(
+                                animate: true,
+                                userID: userId,
+                              ),
+                              // child: Text('Hello'),
                             ),
                             margin: EdgeInsets.all(8),
                           ),

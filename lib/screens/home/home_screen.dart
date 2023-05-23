@@ -196,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ListView(
               children: <Widget>[
                 SizedBox(
-                  height: screenHeight * 0.1,
+                  height: screenHeight * 0.05,
                 ),
                 Row(
                   children: <Widget>[
